@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: yolanmq/auth
+          image: eu.gcr.io/micro-dev-301819/auth
 ---
 apiVersion: v1
 kind: Service
