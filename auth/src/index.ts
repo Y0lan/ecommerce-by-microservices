@@ -1,5 +1,7 @@
 import express from 'express';
 import 'express-async-errors'
+import mongoose from 'mongoose';
+
 const bodyParser = require('body-parser')
 import {currentUserRouter} from './routes/users/current'
 import {loginRouter} from './routes/users/login'
@@ -20,4 +22,21 @@ app.all('*', (req, res) => {
     throw new NotFoundError();
 })
 app.use(errorHandler)
+
+
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useCreateIndex: true
+            }
+        )
+        console.log("Connected to mongo")
+    } catch (err) {
+        console.log(err)
+    }
+
+}
 app.listen(port, () => console.log("listening on port ", port));
+start();
