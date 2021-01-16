@@ -1,7 +1,7 @@
 # ecommerce-by-microservices
-## Tech
+## Techno used
 - next.js
-- react
-- kubernetes / docker
-- scaffold
-- TDD
+- react / mongodb
+- scaffold / ingress / kubernetes / docker / google cloud
+- Test
+- Github actions
