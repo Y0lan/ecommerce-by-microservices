@@ -7,8 +7,8 @@ export class NotFoundError extends CustomError {
         return [{message: "Not Found"}];
     }
 
-    constructor() {
-        super("Route not found");
+    constructor(message?: string) {
+        super(message || "Route not found");
         Object.setPrototypeOf(this, NotFoundError.prototype);
     }
 }

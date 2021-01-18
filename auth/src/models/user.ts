@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {Password} from '../services/password';
+import {PasswordManager} from '../services/passwordManager';
 
 interface UserAttributes {
     email: string;
@@ -24,11 +24,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+}, {
+    toJSON: {
+        transform(doc, ret) {
+            delete ret.password;
+            delete ret.__v;
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
 })
 
 userSchema.pre('save', async function (next) {
         if (this.isModified('password')) {
-            const hashed = await Password.toHash(this.get('password'));
+            const hashed = await PasswordManager.toHash(this.get('password'));
             console.log("hashed: " + hashed);
             this.set('password', hashed);
         }
