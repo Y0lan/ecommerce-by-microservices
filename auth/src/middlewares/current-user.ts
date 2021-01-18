@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from "express";
+import {NextFunction, Request, Response} from "express";
 import jwt from 'jsonwebtoken';
 
 interface UserPayload {
@@ -22,10 +22,8 @@ export const currentUser = (
     if (!req.session?.jwt)
         return next();
     try {
-        const payload = jwt.verify(req.session.jwt,
+        req.currentUser = jwt.verify(req.session.jwt,
             process.env.JWT_SECRET_KEY!) as UserPayload;
-        req.currentUser = payload;
-        res.send({currentUser: payload})
     } catch (err) {
         res.send("Need to authenticate before access")
     }
