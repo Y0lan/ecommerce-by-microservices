@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import {BadRequestError} from "../../errors/bad-request-error";
 import {validateRequest} from "../../middlewares/validate-request"
 import {User} from "../../models/user";
+import {app} from "../../app";
 
 const router = express.Router();
 router.post('/api/v1/users/signup', [
@@ -36,6 +37,7 @@ router.post('/api/v1/users/signup', [
         req.session = {
             jwt: user_jwt
         }
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.status(201).send(user)
     }
 )

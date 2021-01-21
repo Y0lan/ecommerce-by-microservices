@@ -25,7 +25,7 @@ export const currentUser = (
         req.currentUser = jwt.verify(req.session.jwt,
             process.env.JWT_SECRET_KEY!) as UserPayload;
     } catch (err) {
-        res.send("Need to authenticate before access")
+        res.send("Impossible to verify jwt")
     }
     next();
 }

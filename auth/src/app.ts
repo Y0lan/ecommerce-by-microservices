@@ -16,7 +16,6 @@ app.set('trust proxy', true);
 app.use(bodyParser.json())
 app.use(cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== 'test'
 }));
 app.use(signupRouter)
 app.use(currentUserRouter)
