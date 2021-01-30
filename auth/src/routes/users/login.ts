@@ -2,10 +2,9 @@ import express, {Request, Response} from 'express';
 import jwt from "jsonwebtoken";
 
 import {body} from 'express-validator'
-import {validateRequest} from "../../middlewares/validate-request"
+import {validateRequest, BadRequestError} from '@yolanmq/common'
 import {User} from "../../models/user";
 import {PasswordManager} from "../../services/passwordManager";
-import {BadRequestError} from "../../errors/bad-request-error";
 
 const router = express.Router();
 router.post('/api/v1/users/login',

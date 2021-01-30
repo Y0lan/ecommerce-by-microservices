@@ -18,7 +18,7 @@ const start = async () => {
                 useCreateIndex: true
             }
         )
-        console.log("Connected to mongo (auth microservices)")
+        console.log("Connected to mongo (tickets micro service)")
     } catch (err) {
         console.log(err)
     }
