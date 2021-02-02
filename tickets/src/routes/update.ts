@@ -2,6 +2,8 @@ import express, {Request, Response} from 'express';
 import {Ticket} from '../models/ticket';
 import {body} from 'express-validator'
 import {validateRequest, NotFoundError, requireAuth, NotAuthorizedError} from "@yolanmq/common";
+import {TicketUpdatedPublisher} from "../events/publishers/ticket-updated-publisher";
+import {natsWrapper} from "../nats-wrapper";
 
 const router = express.Router()
 router.put('/api/v1/tickets/:id',
@@ -25,6 +27,12 @@ router.put('/api/v1/tickets/:id',
             price
         })
         await ticket.save()
+        await new TicketUpdatedPublisher(natsWrapper.client).publish({
+            id: ticket.id,
+            title: ticket.title,
+            price: ticket.price,
+            userId: ticket.userId
+        })
         res.send(ticket)
     })
 

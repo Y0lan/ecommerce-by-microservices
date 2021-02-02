@@ -16,6 +16,14 @@ spec:
         - name: tickets
           image: eu.gcr.io/micro-dev-301819/tickets
           env:
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                    fieldPath: metadata.name
             - name: JWT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
