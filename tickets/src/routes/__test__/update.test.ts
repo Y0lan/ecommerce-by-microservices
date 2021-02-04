@@ -1,6 +1,6 @@
 import request from 'supertest'
 import {app} from '../../app'
-import generateID from '../../utils/generateID'
+import generateID from '../../../../common/src/utils/generateMongooseID'
 import {natsWrapper} from "../../nats-wrapper";
 
 it('returns a 404 if the provided id does not exist', async () => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default ({req}) => {
+const fn =  ({req}) => {
     // in browser
     let axiosOptions = {
         baseURL: '/'
@@ -14,3 +14,5 @@ export default ({req}) => {
     }
     return axios.create(axiosOptions)
 }
+
+export default fn;
