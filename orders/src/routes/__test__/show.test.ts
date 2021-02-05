@@ -1,9 +1,11 @@
 import request from 'supertest'
 import {Ticket} from "../../models/ticket";
 import {app} from "../../app";
+import generateID from "../../utils/generateID";
 
 it('fetches the order', async () => {
     const ticket = Ticket.build({
+        id: generateID(),
         title: 'ticket title',
         price: 585
     });
@@ -27,6 +29,7 @@ it('fetches the order', async () => {
 })
 it('returns an error if one user tries to fetch another users order', async () => {
     const ticket = Ticket.build({
+        id: generateID(),
         title: 'ticket title',
         price: 585
     });

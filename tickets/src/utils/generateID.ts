@@ -1,4 +1,4 @@
 import mongoose from "mongoose";
 
-const generateID = () => new mongoose.Types.ObjectId().toHexString()
+const generateID = () => mongoose.Types.ObjectId().toHexString()
 export default generateID

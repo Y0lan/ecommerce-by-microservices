@@ -1,7 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import generateMongooseID from "../utils/generateID";
+import generateID from "../utils/generateID";
 declare global {
     namespace NodeJS {
         interface Global {
@@ -41,7 +41,7 @@ afterAll(async () => {
 
 global.login = () => {
     const payload = {
-        id: generateMongooseID(),
+        id: generateID(),
         email: 'fakeemail@example.com'
     }
     const token = jwt.sign(payload, process.env.JWT_SECRET_KEY!)

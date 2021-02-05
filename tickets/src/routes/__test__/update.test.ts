@@ -1,7 +1,8 @@
 import request from 'supertest'
 import {app} from '../../app'
-import generateID from '../../../../common/src/utils/generateMongooseID'
+import generateID from '../../utils/generateID'
 import {natsWrapper} from "../../nats-wrapper";
+import {Ticket} from "../../models/ticket";
 
 it('returns a 404 if the provided id does not exist', async () => {
     await request(app)
@@ -112,4 +113,28 @@ it('publish an event', async () => {
         })
         .expect(200)
     expect(natsWrapper.client.publish).toHaveBeenCalled();
+})
+
+it('rejects update if the ticket is reserved', async () => {
+    const cookie = global.login()
+    const title = 'valid title'
+    const price = 45
+    const response = await request(app)
+        .post('/api/v1/tickets')
+        .set('Cookie', cookie)
+        .send({
+            title: 'old valid title',
+            price: 10
+        })
+    const ticket = await Ticket.findById(response.body.id)
+    ticket!.set({orderId: generateID()})
+    await ticket!.save()
+    await request(app)
+        .put(`/api/v1/tickets/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({
+            title,
+            price
+        })
+        .expect(400)
 })

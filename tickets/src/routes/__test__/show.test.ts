@@ -2,7 +2,7 @@ import request from 'supertest'
 import {app} from '../../app'
 import mongoose from "mongoose";
 import {Ticket} from '../../models/ticket'
-import generateID from "../../../../common/src/utils/generateMongooseID";
+import generateID from "../../utils/generateID";
 
 it('returns a 404 if the ticket is not found', async () => {
    await request(app)

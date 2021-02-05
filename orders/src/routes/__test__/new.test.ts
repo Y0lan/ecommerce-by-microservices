@@ -4,6 +4,7 @@ import {app} from '../../app'
 import {Ticket} from "../../models/ticket";
 import {Order} from "../../models/order";
 import {OrderStatus} from "@yolanmq/common";
+import {natsWrapper} from "../../nats-wrapper";
 
 it('returns an error if the ticket does not exist', async () => {
     const ticketId = generateID()
@@ -15,6 +16,7 @@ it('returns an error if the ticket does not exist', async () => {
 })
 it('returns an error if the ticket is already reserved', async () => {
     const ticket = Ticket.build({
+        id: generateID(),
         title: 'fake title',
         price: 25
     })
@@ -35,6 +37,7 @@ it('returns an error if the ticket is already reserved', async () => {
 })
 it('reserves a ticket', async () => {
     const ticket = Ticket.build({
+        id: generateID(),
         title: 'fake title',
         price: 25
     })
@@ -46,4 +49,20 @@ it('reserves a ticket', async () => {
         .expect(201)
 })
 
-it.todo('emit a created order event')
+it('emits an order created event', async () => {
+    const ticket = Ticket.build({
+        id: generateID(),
+        title: 'concert',
+        price: 20,
+    });
+    await ticket.save();
+
+    await request(app)
+        .post('/api/v1/orders')
+        .set('Cookie', global.login())
+        .send({ ticketId: ticket.id })
+        .expect(201);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
