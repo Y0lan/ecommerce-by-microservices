@@ -1,6 +1,5 @@
 import { natsWrapper } from './nats-wrapper';
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
-import {loginRouter} from "../../auth/src/routes/users/login";
 
 const start = async () => {
   console.log("Starting expiration Microservice...")
