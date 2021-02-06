@@ -14,6 +14,7 @@ app.set('trust proxy', true);
 app.use(bodyParser.json())
 app.use(cookieSession({
     signed: false,
+    secure: false,
 }));
 app.use(currentUser)
 app.use(createTicketRouter);

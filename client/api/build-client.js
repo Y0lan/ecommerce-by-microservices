@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const fn =  ({req}) => {
+const fn = ({req}) => {
     // in browser
     let axiosOptions = {
         baseURL: '/'
@@ -8,7 +8,10 @@ const fn =  ({req}) => {
     // on the server
     if (typeof window === 'undefined') {
         axiosOptions = {
-            baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+            // Google Cloud
+            // baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+            // Digital Ocean
+            // baseURL: 'http://www.missylaboss.dev',
             headers: req.headers
         }
     }
