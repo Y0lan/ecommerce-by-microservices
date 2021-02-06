@@ -7,7 +7,7 @@ import {OrderCancelledListener} from "./events/listeners/order-cancelled-listene
 
 const port = 3000
 const start = async () => {
-    console.log("Starting tickets Microservice...")
+    console.log("Starting tickets Microservice... ")
     if (!process.env.JWT_SECRET_KEY) throw new NotFoundError("JWT_SECRET_KEY MISSING IN ENV")
     if (!process.env.MONGO_URI) throw new NotFoundError("MONGO_URI MISSING IN ENV")
     if (!process.env.NATS_URL) throw new NotFoundError("NATS_URL MISSING IN ENV")
