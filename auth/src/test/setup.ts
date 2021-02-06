@@ -6,14 +6,14 @@ import { app } from '../app';
 declare global {
     namespace NodeJS {
         interface Global {
-            signin(): Promise<string[]>;
+            login(): Promise<string[]>;
         }
     }
 }
 
 let mongo: any;
 beforeAll(async () => {
-    process.env.JWT_KEY = 'asdfasdf';
+    process.env.JWT_SECRET_KEY = 'asdfasdf';
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
     mongo = new MongoMemoryServer();
@@ -38,12 +38,12 @@ afterAll(async () => {
     await mongoose.connection.close();
 });
 
-global.signin = async () => {
+global.login = async () => {
     const email = 'test@test.com';
     const password = 'password';
 
     const response = await request(app)
-        .post('/api/users/signup')
+        .post('/api/v1/users/signup')
         .send({
             email,
             password

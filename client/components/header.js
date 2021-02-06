@@ -5,6 +5,8 @@ const fn = ({currentUser}) => {
     const links = [
         !currentUser && {label: 'Sign up', href: '/auth/signup'},
         !currentUser && {label: 'Login', href: '/auth/login'},
+        currentUser && {label: 'Sell Ticket', href: '/tickets/new'},
+        currentUser && {label: 'My Orders', href: '/orders'},
         currentUser && {label: 'Logout', href: '/auth/logout'},
     ]
         .filter(link => link)
