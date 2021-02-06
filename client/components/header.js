@@ -19,7 +19,7 @@ const fn = ({currentUser}) => {
         })
     return <nav className="navbar navbar-light bg-light">
         <Link href='/'>
-            <a className="navbar-brand">micro.dev</a>
+            <a className="navbar-brand">micro.dev 🥰</a>
         </Link>
         <div className="div-flex justify-content-end">
             <ul className="nav d-flex align-items-center">
