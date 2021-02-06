@@ -3,13 +3,13 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/*
+      - ../infra/k8s-dig-ocean/*
 build:
   googleCloudBuild:
     projectId: micro-dev-301819
   artifacts:
-    - image: eu.gcr.io/micro-dev-301819/auth
-      context: auth
+    - image: yolanmq/auth
+      context: ../auth
       docker:
         dockerfile: Dockerfile
       sync:
@@ -18,40 +18,40 @@ build:
             dest: .
 
 
-    - image: eu.gcr.io/micro-dev-301819/tickets
-      context: tickets
+    - image: yolanmq/tickets
+      context: ../tickets
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: eu.gcr.io/micro-dev-301819/orders
-      context: orders
+    - image: yolanmq/orders
+      context: ../orders
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: eu.gcr.io/micro-dev-301819/expiration
-      context: expiration
+    - image: yolanmq/expiration
+      context: ../expiration
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: eu.gcr.io/micro-dev-301819/payments
-      context: payments
+    - image: yolanmq/payments
+      context: ../payments
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: eu.gcr.io/micro-dev-301819/client
-      context: client
+    - image: yolanmq/client
+      context: ../client
       docker:
         dockerfile: Dockerfile
       sync:
