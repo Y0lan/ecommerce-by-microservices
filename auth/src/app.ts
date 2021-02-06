@@ -1,6 +1,5 @@
 import express from 'express';
 import 'express-async-errors'
-import mongoose from 'mongoose';
 import cookieSession from "cookie-session";
 
 const bodyParser = require('body-parser')
