@@ -5,8 +5,8 @@ deploy:
     manifests:
       - ../infra/k8s-dig-ocean/*
 build:
-  googleCloudBuild:
-    projectId: micro-dev-301819
+  local:
+    push: false
   artifacts:
     - image: yolanmq/auth
       context: ../auth
@@ -16,8 +16,6 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-
-
     - image: yolanmq/tickets
       context: ../tickets
       docker:
