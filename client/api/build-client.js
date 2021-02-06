@@ -8,10 +8,7 @@ const fn = ({req}) => {
     // on the server
     if (typeof window === 'undefined') {
         axiosOptions = {
-            // Google Cloud
-            // baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
-            // Digital Ocean
-            // baseURL: 'http://www.missylaboss.dev',
+            baseURL: 'http://www.missylaboss.dev',
             headers: req.headers
         }
     }
