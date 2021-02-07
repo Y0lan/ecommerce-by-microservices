@@ -9,7 +9,7 @@ metadata:
 spec:
   tls:
     - hosts:
-      - www.missylaboos.dev
+      - www.missylaboss.dev
       secretName: echo-tls
   rules:
     - host: www.missylaboss.dev
