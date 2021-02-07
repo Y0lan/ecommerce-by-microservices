@@ -11,9 +11,11 @@ const fn = ({req}) => {
             // Google Cloud
             // baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
             // Digital Ocean
-            baseURL: 'http://www.missylaboss.dev',
+            //baseURL: 'http://www.missylaboss.dev',
+            baseURL: process.env.BASE_URL,
             headers: req.headers
         }
+        console.log("axios base url = ", process.env.BASE_URL)
     }
     return axios.create(axiosOptions)
 }

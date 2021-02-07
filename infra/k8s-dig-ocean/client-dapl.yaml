@@ -15,6 +15,9 @@ spec:
       containers:
         - name: client
           image: yolanmq/client
+          env:
+            - name: BASE_URL
+              value: 'http://www.missylaboss.dev'
 ---
 apiVersion: v1
 kind: Service

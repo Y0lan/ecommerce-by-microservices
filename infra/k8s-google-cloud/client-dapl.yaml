@@ -15,6 +15,9 @@ spec:
       containers:
         - name: client
           image: eu.gcr.io/micro-dev-301819/client
+          env:
+            - name: BASE_URL
+              value: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local'
 ---
 apiVersion: v1
 kind: Service
