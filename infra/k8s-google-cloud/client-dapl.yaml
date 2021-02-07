@@ -18,6 +18,8 @@ spec:
           env:
             - name: BASE_URL
               value: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local'
+            - name: IS_SECURE
+              value: 'false'
 ---
 apiVersion: v1
 kind: Service
