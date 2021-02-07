@@ -18,6 +18,8 @@ spec:
           env:
             - name: BASE_URL
               value: 'http://www.missylaboss.dev'
+            - name: IS_SECURE
+              value: 'true'
 ---
 apiVersion: v1
 kind: Service

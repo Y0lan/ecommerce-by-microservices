@@ -11,7 +11,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: false,
+    secure: process.env.IS_SECURE === 'true',
   })
 );
 app.use(currentUser);
