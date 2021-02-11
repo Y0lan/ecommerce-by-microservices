@@ -4,7 +4,7 @@ import { app } from "./app";
 
 const port = 3000
 const start = async () => {
-    console.log("Starting [authentification] Service...🥰 ")
+    console.log("Starting [authentification] Service...🥰")
 
     if(!process.env.JWT_SECRET_KEY){
         throw new NotFoundError("JWT_SECRET_KEY MISSING IN ENV")
