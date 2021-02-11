@@ -9,7 +9,7 @@ import {indexOrderRouter} from "./routes";
 import {showOrderRouter} from "./routes/show";
 
 const bodyParser = require('body-parser')
-const app = express();
+const app = express()
 app.set('trust proxy', true);
 app.use(bodyParser.json())
 app.use(cookieSession({
