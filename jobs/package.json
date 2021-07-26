@@ -23,7 +23,7 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/mongoose": "^5.11.97",
-    "@yolanmq/common": "^10.0.24",
+    "@yolanmq/common": "^10.0.25",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",

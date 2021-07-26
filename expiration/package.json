@@ -19,7 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/bull": "^3.15.2",
-    "@yolanmq/common": "^10.0.24",
+    "@yolanmq/common": "^10.0.25",
     "bull": "^3.26.0",
     "node-nats-streaming": "^0.2.6",
     "ts-node-dev": "^1.1.8",
