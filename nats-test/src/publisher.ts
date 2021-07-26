@@ -2,6 +2,7 @@ import nats from 'node-nats-streaming'
 import {TicketCreatedPublisher} from "./events/ticket-created-publisher";
 
 console.clear()
+console.log("x")
 const stan = nats.connect('ticketing', 'abc', {
     url: 'http://localhost:4222'
 })
