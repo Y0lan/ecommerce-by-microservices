@@ -35,7 +35,7 @@ const NewJob = () => {
 
     return (
         <div>
-            <h1> Create a Ticket</h1>
+            <h1> Publish a Job</h1>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Title</label>

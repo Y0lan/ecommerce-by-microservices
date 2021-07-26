@@ -30,7 +30,7 @@ const OrderShow = ({order, currentUser}) => {
         <StripeCheckout
             token={({id}) => doRequest({token: id})}
             stripeKey="pk_test_51HLCw8Clba6dgGKLJWySkLZZR93dJAdLQMIKRx4JhOoXJHN8DQN2XqPzDSgEZYMcm7XFo7thbLpjY2zsBhtd7zJc00snikGMPs"
-            amount={order.ticket.price * 100}
+            amount={order.job.price * 100}
             email={currentUser.email}
         />
         {errors}
