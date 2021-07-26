@@ -1,28 +1,28 @@
 import request from 'supertest'
 import generateID from "../../utils/generateID";
 import {app} from '../../app'
-import {Ticket} from "../../models/ticket";
+import {Job} from "../../models/job";
 import {Order} from "../../models/order";
 import {OrderStatus} from "@yolanmq/common";
 import {natsWrapper} from "../../nats-wrapper";
 
-it('returns an error if the ticket does not exist', async () => {
-    const ticketId = generateID()
+it('returns an error if the job does not exist', async () => {
+    const jobId = generateID()
     await request(app)
         .post('/api/v1/orders')
         .set('Cookie', global.login())
-        .send({ticketId})
+        .send({jobId})
         .expect(404)
 })
-it('returns an error if the ticket is already reserved', async () => {
-    const ticket = Ticket.build({
+it('returns an error if the job is already reserved', async () => {
+    const job = Job.build({
         id: generateID(),
         title: 'fake title',
         price: 25
     })
-    await ticket.save()
+    await job.save()
     const order = Order.build({
-        ticket,
+        job,
         userId: generateID(),
         status: OrderStatus.Created,
         expiresAt: new Date()
@@ -31,36 +31,36 @@ it('returns an error if the ticket is already reserved', async () => {
     await request(app)
         .post('/api/v1/orders')
         .set('Cookie', global.login())
-        .send({ticketId: ticket.id})
+        .send({jobId: job.id})
         .expect(400)
 
 })
-it('reserves a ticket', async () => {
-    const ticket = Ticket.build({
+it('reserves a job', async () => {
+    const job = Job.build({
         id: generateID(),
         title: 'fake title',
         price: 25
     })
-    await ticket.save()
+    await job.save()
     await request(app)
         .post('/api/v1/orders')
         .set('Cookie', global.login())
-        .send({ticketId: ticket.id})
+        .send({jobId: job.id})
         .expect(201)
 })
 
 it('emits an order created event', async () => {
-    const ticket = Ticket.build({
+    const job = Job.build({
         id: generateID(),
         title: 'concert',
         price: 20,
     });
-    await ticket.save();
+    await job.save();
 
     await request(app)
         .post('/api/v1/orders')
         .set('Cookie', global.login())
-        .send({ ticketId: ticket.id })
+        .send({ jobId: job.id })
         .expect(201);
 
     expect(natsWrapper.client.publish).toHaveBeenCalled();

@@ -18,8 +18,8 @@ build:
             dest: .
 
 
-    - image: eu.gcr.io/micro-dev-301819/tickets
-      context: ../tickets
+    - image: eu.gcr.io/micro-dev-301819/jobs
+      context: ../jobs
       docker:
         dockerfile: Dockerfile
       sync:

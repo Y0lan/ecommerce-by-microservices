@@ -16,8 +16,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: yolanmq/tickets
-      context: ../tickets
+    - image: yolanmq/jobs
+      context: ../jobs
       docker:
         dockerfile: Dockerfile
       sync:

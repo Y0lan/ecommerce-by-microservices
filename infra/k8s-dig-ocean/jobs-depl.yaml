@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobs-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobs
+  template:
+    metadata:
+      labels:
+        app: jobs
+    spec:
+      containers:
+        - name: jobs
+          image: yolanmq/jobs
+          env:
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: jobs
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                    fieldPath: metadata.name
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET_KEY
+            - name: MONGO_URI
+              value: 'mongodb://jobs-mongo-srv:27017/jobs'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobs-srv
+spec:
+  selector:
+    app: jobs
+  ports:
+    - name: jobs
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+
+

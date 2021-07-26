@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import {updateIfCurrentPlugin} from "mongoose-update-if-current";
 import { OrderStatus } from '@yolanmq/common';
-import { TicketDoc } from './ticket';
+import { JobDoc } from './job';
 
 export { OrderStatus };
 
@@ -9,14 +9,14 @@ interface OrderAttributes {
     userId: string;
     status: OrderStatus;
     expiresAt: Date;
-    ticket: TicketDoc;
+    job: JobDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
     userId: string;
     status: OrderStatus;
     expiresAt: Date;
-    ticket: TicketDoc;
+    job: JobDoc;
     version: number;
 }
 
@@ -39,9 +39,9 @@ const orderSchema = new mongoose.Schema(
         expiresAt: {
             type: mongoose.Schema.Types.Date,
         },
-        ticket: {
+        job: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Ticket',
+            ref: 'Job',
         },
     },
     {

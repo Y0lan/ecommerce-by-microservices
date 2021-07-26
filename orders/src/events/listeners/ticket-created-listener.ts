@@ -1,21 +1,21 @@
 import { Message } from 'node-nats-streaming';
-import { Subjects, Listener, TicketCreatedEvent } from '@yolanmq/common';
-import { Ticket } from '../../models/ticket';
+import { Subjects, Listener, JobCreatedEvent } from '@yolanmq/common';
+import { Job } from '../../models/job';
 import { queueGroupName } from './queue-group-name';
 
-export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
-    subject: Subjects.TicketCreated = Subjects.TicketCreated;
+export class JobCreatedListener extends Listener<JobCreatedEvent> {
+    subject: Subjects.JobCreated = Subjects.JobCreated;
     queueGroupName = queueGroupName;
 
-    async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
+    async onMessage(data: JobCreatedEvent['data'], msg: Message) {
         const { id, title, price } = data;
 
-        const ticket = Ticket.build({
+        const job = Job.build({
             id,
             title,
             price,
         });
-        await ticket.save();
+        await job.save();
 
         msg.ack();
     }

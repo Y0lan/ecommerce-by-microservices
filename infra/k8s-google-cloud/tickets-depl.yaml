@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-depl
+  name: jobs-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets
+      app: jobs
   template:
     metadata:
       labels:
-        app: tickets
+        app: jobs
     spec:
       containers:
-        - name: tickets
-          image: eu.gcr.io/micro-dev-301819/tickets
+        - name: jobs
+          image: eu.gcr.io/micro-dev-301819/jobs
           env:
             - name: NATS_URL
               value: 'http://nats-srv:4222'
             - name: NATS_CLUSTER_ID
-              value: ticketing
+              value: jobs
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
@@ -30,17 +30,17 @@ spec:
                   name: jwt-secret
                   key: JWT_SECRET_KEY
             - name: MONGO_URI
-              value: 'mongodb://tickets-mongo-srv:27017/tickets'
+              value: 'mongodb://jobs-mongo-srv:27017/jobs'
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-srv
+  name: jobs-srv
 spec:
   selector:
-    app: tickets
+    app: jobs
   ports:
-    - name: tickets
+    - name: jobs
       protocol: TCP
       port: 3000
       targetPort: 3000

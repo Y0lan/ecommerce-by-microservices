@@ -5,7 +5,7 @@ const fn = ({currentUser}) => {
     const links = [
         !currentUser && {label: 'Sign up', href: '/auth/signup'},
         !currentUser && {label: 'Login', href: '/auth/login'},
-        currentUser && {label: 'Sell Ticket', href: '/tickets/new'},
+        currentUser && {label: 'Sell Ticket', href: '/jobs/new'},
         currentUser && {label: 'My Orders', href: '/orders'},
         currentUser && {label: 'Logout', href: '/auth/logout'},
     ]
@@ -19,7 +19,7 @@ const fn = ({currentUser}) => {
         })
     return <nav className="navbar navbar-light bg-light">
         <Link href='/'>
-            <a className="navbar-brand">micro.io 🥰</a>
+            <a className="navbar-brand">micro-service.io 🥰</a>
         </Link>
         <div className="div-flex justify-content-end">
             <ul className="nav d-flex align-items-center">

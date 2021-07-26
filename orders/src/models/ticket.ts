@@ -2,28 +2,28 @@ import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Order, OrderStatus } from './order';
 
-interface TicketAttributes {
+interface JobAttributes {
     id: string;
     title: string;
     price: number;
 }
 
-export interface TicketDoc extends mongoose.Document {
+export interface JobDoc extends mongoose.Document {
     title: string;
     price: number;
     version: number;
     isReserved(): Promise<boolean>;
 }
 
-interface TicketModel extends mongoose.Model<TicketDoc> {
-    build(attrs: TicketAttributes): TicketDoc;
+interface JobModel extends mongoose.Model<JobDoc> {
+    build(attrs: JobAttributes): JobDoc;
     findByEvent(event: {
         id: string;
         version: number;
-    }): Promise<TicketDoc | null>;
+    }): Promise<JobDoc | null>;
 }
 
-const ticketSchema = new mongoose.Schema(
+const jobSchema = new mongoose.Schema(
     {
         title: {
             type: String,
@@ -45,26 +45,26 @@ const ticketSchema = new mongoose.Schema(
     }
 );
 
-ticketSchema.set('versionKey', 'version');
-ticketSchema.plugin(updateIfCurrentPlugin);
+jobSchema.set('versionKey', 'version');
+jobSchema.plugin(updateIfCurrentPlugin);
 
-ticketSchema.statics.findByEvent = (event: { id: string; version: number }) => {
-    return Ticket.findOne({
+jobSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+    return Job.findOne({
         _id: event.id,
         version: event.version - 1,
     });
 };
-ticketSchema.statics.build = (attributes: TicketAttributes) => {
-    return new Ticket({
+jobSchema.statics.build = (attributes: JobAttributes) => {
+    return new Job({
         _id: attributes.id,
         title: attributes.title,
         price: attributes.price,
     });
 };
-ticketSchema.methods.isReserved = async function () {
+jobSchema.methods.isReserved = async function () {
     const existingOrder = await Order.findOne({
         // @ts-ignore
-        ticket: this,
+        job: this,
         status: {
             $in: [
                 OrderStatus.Created,
@@ -77,6 +77,6 @@ ticketSchema.methods.isReserved = async function () {
     return !!existingOrder;
 };
 
-const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
+const Job = mongoose.model<JobDoc, JobModel>('Job', jobSchema);
 
-export { Ticket };
+export { Job };
