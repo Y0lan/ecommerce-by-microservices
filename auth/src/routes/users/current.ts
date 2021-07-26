@@ -1,6 +1,6 @@
 import express from 'express';
 import {currentUser} from '@yolanmq/common'
-
+console.log("x")
 const router = express.Router();
 router.get('/api/v1/users/current',
     currentUser,
