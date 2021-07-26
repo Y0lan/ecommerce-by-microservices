@@ -4,7 +4,7 @@ import {Order} from "../models/order";
 import {natsWrapper} from "../nats-wrapper";
 import {OrderCancelledPublisher} from "../events/publishers/order-cancelled-publisher";
 
-console.log("x")
+console.log("push")
 const router = express.Router()
 router.delete('/api/v1/orders/:orderId', requireAuth, async (req: Request, res: Response) => {
     const {orderId} = req.params;
