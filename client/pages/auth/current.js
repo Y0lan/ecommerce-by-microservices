@@ -1,1 +1,1 @@
-console.log("pus")
+console.log("push")
