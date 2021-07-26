@@ -3,23 +3,23 @@ import { OrderStatus, ExpirationCompleteEvent } from '@yolanmq/common';
 import { ExpirationCompleteListener } from '../expiration-complete-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Order } from '../../../models/order';
-import { Ticket } from '../../../models/ticket';
+import { Job } from '../../../models/job';
 import generateID from "../../../utils/generateID";
 
 const setup = async () => {
   const listener = new ExpirationCompleteListener(natsWrapper.client);
 
-  const ticket = Ticket.build({
+  const job = Job.build({
     id: generateID(),
     title: 'concert',
     price: 20,
   });
-  await ticket.save();
+  await job.save();
   const order = Order.build({
     status: OrderStatus.Created,
     userId: generateID(),
     expiresAt: new Date(),
-    ticket,
+    job,
   });
   await order.save();
 
@@ -32,7 +32,7 @@ const setup = async () => {
     ack: jest.fn(),
   };
 
-  return { listener, order, ticket, data, msg };
+  return { listener, order, job, data, msg };
 };
 
 it('updates the order status to cancelled', async () => {

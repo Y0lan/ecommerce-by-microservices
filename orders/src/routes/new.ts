@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import express, {Request, Response} from "express";
 import {body} from 'express-validator'
 import {requireAuth, validateRequest, NotFoundError, OrderStatus, BadRequestError} from "@yolanmq/common";
-import {Ticket} from '../models/ticket';
+import {Job} from '../models/job';
 import {Order} from "../models/order";
 import {natsWrapper} from "../nats-wrapper";
 import {OrderCreatedPublisher} from "../events/publishers/order-created-publisher";
@@ -14,26 +14,26 @@ const EXPIRATION_WINDOW_SECONDS = 90;
 router.post('/api/v1/orders',
     requireAuth,
     [
-        body('ticketId')
+        body('jobId')
             .not()
             .isEmpty()
             .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
-            .withMessage('New order without valid ticket is forbidden')
+            .withMessage('New order without valid job is forbidden')
     ],
     validateRequest,
     async (req: Request, res: Response) => {
-        const {ticketId} = req.body
-        const ticket = await Ticket.findById(ticketId)
-        if(!ticket) throw new NotFoundError()
-        const isReserved = await ticket.isReserved()
-        if(isReserved) throw new BadRequestError('Ticket is already reserved')
+        const {jobId} = req.body
+        const job = await Job.findById(jobId)
+        if(!job) throw new NotFoundError()
+        const isReserved = await job.isReserved()
+        if(isReserved) throw new BadRequestError('Job is already reserved')
         const expiration = new Date();
         expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS)
         const order = Order.build({
             userId: req.currentUser!.id,
             status: OrderStatus.Created,
             expiresAt: expiration,
-            ticket
+            job
         })
         await order.save()
         // Publish an event saying that an order was created
@@ -43,9 +43,9 @@ router.post('/api/v1/orders',
             userId: order.userId,
             expiresAt: order.expiresAt.toISOString(),
             version: order.version,
-            ticket: {
-                id: ticket.id,
-                price: ticket.price,
+            job: {
+                id: job.id,
+                price: job.price,
             },
         });
         res.status(201).send(order)

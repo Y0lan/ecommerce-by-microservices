@@ -1,21 +1,21 @@
 import request from 'supertest'
-import {Ticket} from "../../models/ticket";
+import {Job} from "../../models/job";
 import {app} from "../../app";
 import generateID from "../../utils/generateID";
 
 it('fetches the order', async () => {
-    const ticket = Ticket.build({
+    const job = Job.build({
         id: generateID(),
-        title: 'ticket title',
+        title: 'job title',
         price: 585
     });
-    await ticket.save()
+    await job.save()
 
     const user = global.login()
     const {body: order} = await request(app)
         .post('/api/v1/orders')
         .set('Cookie', user)
-        .send({ticketId: ticket.id})
+        .send({jobId: job.id})
         .expect(201)
 
     const {body: fetchedOrder} = await request(app)
@@ -28,18 +28,18 @@ it('fetches the order', async () => {
 
 })
 it('returns an error if one user tries to fetch another users order', async () => {
-    const ticket = Ticket.build({
+    const job = Job.build({
         id: generateID(),
-        title: 'ticket title',
+        title: 'job title',
         price: 585
     });
-    await ticket.save()
+    await job.save()
 
     const user = global.login()
     const {body: order} = await request(app)
         .post('/api/v1/orders')
         .set('Cookie', user)
-        .send({ticketId: ticket.id})
+        .send({jobId: job.id})
         .expect(201)
 
     await request(app)
