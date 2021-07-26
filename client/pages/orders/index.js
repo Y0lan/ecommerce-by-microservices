@@ -3,7 +3,7 @@ const OrderIndex = ({orders}) => {
         {console.log(orders)}
         {
             orders.map(order => {
-                return <li key={order.id}> Order for: {order.ticket.title} : {order.status}</li>
+                return <li key={order.id}> Order for: {order.job.title} : {order.status}</li>
             })
         }
     </ul>
