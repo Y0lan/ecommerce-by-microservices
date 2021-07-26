@@ -1,1 +1,1 @@
-kubectl config use-context do-fra1-micro-dev
+kubectl config use-context do-ams3-micro-dev
