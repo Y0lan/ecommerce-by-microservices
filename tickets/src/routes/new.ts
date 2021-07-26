@@ -7,7 +7,7 @@ import {natsWrapper} from "../nats-wrapper";
 
 const router = express.Router();
 
-console.log("push")
+console.log("pus")
 router.post('/api/v1/tickets', requireAuth, [
         body('title').not().isEmpty().withMessage('title is required'),
         body('price').isFloat({gt: 0}).withMessage('price must be greater than 0'),
