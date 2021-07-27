@@ -6,7 +6,6 @@ import {JobUpdatedPublisher} from "../publishers/job-updated-publisher";
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     queueGroupName = queueGroupName;
     subject: Subjects.OrderCancelled = Subjects.OrderCancelled
-
     async onMessage(data: OrderCancelledEvent["data"], msg: Message) {
         const job = await Job.findById(data.job.id)
         if(!job) throw new Error('Job not found')
@@ -21,5 +20,6 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
             version: job.version,
         })
         msg.ack()
+        console.log("ddd")
     }
 }
