@@ -8,6 +8,7 @@ interface JobAttributes {
     price: number;
 }
 
+console.log("ddd")
 export interface JobDoc extends mongoose.Document {
     title: string;
     price: number;

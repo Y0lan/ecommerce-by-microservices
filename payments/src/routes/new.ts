@@ -16,6 +16,7 @@ import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
+console.log("ddd")
 
 router.post(
   '/api/v1/payments',
