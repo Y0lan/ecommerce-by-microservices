@@ -5,6 +5,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@yolanmq/common';
 import { createChargeRouter } from './routes/new';
 
+console.log("toto")
 const app = express();
 app.set('trust proxy', true);
 app.use(json());

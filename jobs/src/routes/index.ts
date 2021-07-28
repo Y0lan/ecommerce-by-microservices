@@ -3,6 +3,7 @@ import {Job} from '../models/job'
 
 const router = express.Router();
 
+console.log("toto")
 router.get('/api/v1/jobs', async(req: Request, res: Response) => {
     const jobs = await Job.find({
         orderId: undefined

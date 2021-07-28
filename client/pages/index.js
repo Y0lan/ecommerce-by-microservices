@@ -20,7 +20,7 @@ const index = ({currentUser, jobs}) => {
                 <tr>
                     <th>Title</th>
                     <th>Price</th>
-                    <th>Hire</th>
+                    <th>Hire ---</th>
                 </tr>
                 </thead>
                 <tbody>
