@@ -14,7 +14,7 @@ const JobShow = ({job}) => {
         <h1>{job.title}</h1>
         <h4>Price: {job.price}</h4>
         {errors}
-        <button onClick={() => doRequest()} className="btn btn-primary">Purchase</button>
+        <button onClick={() => doRequest()} className="btn btn-primary">Hire</button>
     </div>
 }
 
